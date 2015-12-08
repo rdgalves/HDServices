@@ -43,14 +43,14 @@
 						url="/pages/Chamado/PesquisarChamado.xhtml" icon="ui-icon-search" />
 				</p:submenu>
 
-				<p:submenu label="Atendimento" icon="ui-icon-person">
+				<p:submenu label="Atendimento" icon="ui-icon-person"  rendered="#{loginBean.user.perfil == 'atendente' or loginBean.user.perfil == 'administrador'}" >
 					<p:menuitem value="Fila de atendimento" icon="ui-icon-notice"
 						url="/pages/Atendimento/FilaAtendimento.xhtml" />
 					<p:menuitem value="Visão de Atendimento" icon="ui-icon-home"
 						url="/pages/Atendimento/AcompanharChamados.xhtml" />
 				</p:submenu>
 
-				<p:submenu label="Administração" icon="ui-icon-gear">
+				<p:submenu label="Administração" icon="ui-icon-gear" rendered="#{loginBean.user.perfil.equals('administrador')}">
 					<p:submenu label="Cadastro" icon="ui-icon-clipboard">
 						<p:menuitem value="Usuário"
 							url="/pages/Pessoa/CadastroPessoa.xhtml" />

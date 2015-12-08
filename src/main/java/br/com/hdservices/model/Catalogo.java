@@ -1,6 +1,7 @@
 package br.com.hdservices.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -18,7 +19,7 @@ public class Catalogo implements Serializable {
 	private int idCatalogo;
 	private TipoCatalogo tipo;
 	private Pessoa autor;
-	private String dataCriacao;
+	private Date dataCriacao;
 	private int sla;
 	private String solicitacao;
 	private List<Chamado> chamados;
@@ -80,11 +81,11 @@ public class Catalogo implements Serializable {
 		this.tipo = tipo;
 	}
 
-	public String getDataCriacao() {
+	public Date getDataCriacao() {
 		return dataCriacao;
 	}
 
-	public void setDataCriacao(String dataCriacao) {
+	public void setDataCriacao(Date dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
 

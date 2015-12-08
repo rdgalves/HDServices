@@ -1,6 +1,7 @@
 package br.com.hdservices.controller;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,6 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
+import br.com.hdservices.SessionContext;
 import br.com.hdservices.model.Catalogo;
 import br.com.hdservices.model.TipoCatalogo;
 import br.com.hdservices.service.GerenciarCatalogoService;
@@ -63,6 +65,9 @@ public class CadastroCatalogoBean implements Serializable {
 	}
 
 	public String salvar() {
+		Date dataRegistro = new Date();
+		catalogo.setDataCriacao(dataRegistro);
+		catalogo.setAutor(SessionContext.getInstance().getUsuarioLogado());
 		cadastroCatalogoService.salvar(catalogo);
 		limpar();
 		FacesUtil.addInfoMessage("Itém inserido no catalogo!");

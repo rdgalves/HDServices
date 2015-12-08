@@ -30,7 +30,7 @@
 
 						<p:outputLabel value="Chamado" for="chamado" />
 						<p:inputText id="chamado" size="60" maxlength="80"
-							value="#{reabrirChamadoBean.chamado.numeroChamado}"
+							value="#{dtSelecaoReabrirChamadoView.chamado.numeroChamado}"
 							required="true" />
 					</p:panelGrid>
 					<br />
@@ -38,21 +38,24 @@
 					<p:toolbar>
 						<p:toolbarGroup align="right">
 							<p:commandButton value="Buscar" id="botaoBuscar"
-								icon="ui-icon-search" action="#{reabrirChamadoBean.pesquisar()}"
+								icon="ui-icon-search" action="#{dtSelecaoReabrirChamadoView.pesquisar()}"
 								update="@form" />
 
 
-							<!--Botão Reabrir-->
-							<p:commandButton type="submit" value="Reabrir" process="@this"
-								icon="ui-icon-arrowrefresh-1-w"
-								action="#{reabrirChamadoBean.reabrirChamado(chamado)}"
-								ajax="false" />
+<!-- 							Botão Reabrir -->
+<!-- 							<p:commandButton type="submit" value="Reabrir" process="@this" -->
+<!-- 								icon="ui-icon-arrowrefresh-1-w" -->
+<!-- 								action="#{dtSelecaoReabrirChamadoView.reabrirChamado()}" ajax="false"> -->
+<!-- 								<f:setPropertyActionListener -->
+<!-- 									value="#{dtSelecaoReabrirChamadoView.chamadoFiltrado}" -->
+<!-- 									target="#{dtSelecaoReabrirChamadoView.chamadoSelecionado}" /> -->
+<!-- 							</p:commandButton> -->
 						</p:toolbarGroup>
 					</p:toolbar>
 
 
 					<p:dataTable id="chamadosTable"
-						value="#{reabrirChamadoBean.chamadoFiltrado}"
+						value="#{dtSelecaoReabrirChamadoView.chamadoFiltrado}"
 						selection="#{filaAtendimentoBean.chamadosSelecionados}"
 						rowKey="#{chamado.numeroChamado}" var="chamado"
 						style="margin-top: 20px" emptyMessage="Nenhum chamado aberto!"
@@ -95,6 +98,15 @@
 						<p:column headerText="Estado"
 							style="text-align: center; width: 90px">
 							<h:outputText value="#{chamado.situacao}" />
+						</p:column>
+						<p:column headerText=""
+							style="text-align: center; width: 90px">
+							<p:commandButton type="submit" value="Reabrir" update="@form"
+								icon="ui-icon-arrowrefresh-1-w"
+								action="#{dtSelecaoReabrirChamadoView.reabrirChamado()}" ajax="false">
+								<f:setPropertyActionListener value="#{chamado}"
+									target="#{dtSelecaoReabrirChamadoView.chamadoSelecionado}" />
+							</p:commandButton>
 						</p:column>
 
 					</p:dataTable>
