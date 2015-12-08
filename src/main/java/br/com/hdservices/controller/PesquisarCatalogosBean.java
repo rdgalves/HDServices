@@ -3,8 +3,10 @@ package br.com.hdservices.controller;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import br.com.hdservices.model.Catalogo;
@@ -13,7 +15,8 @@ import br.com.hdservices.repository.filtro.CatalogoFiltro;
 import br.com.hdservices.util.jsf.FacesUtil;
 
 @Model
-@ManagedBean
+@ManagedBean(name = "psSelecaoCatalogoView")
+@ViewScoped
 public class PesquisarCatalogosBean implements Serializable {
 
 	private static final long serialVersionUID = -3472637190799410274L;
@@ -24,6 +27,14 @@ public class PesquisarCatalogosBean implements Serializable {
 	private Catalogo catalogoSelecionado;
 	private CatalogoFiltro filtro;
 	private List<Catalogo> catalogosFiltrados;
+
+	public Catalogo getCatalogoSelecionado() {
+		return catalogoSelecionado;
+	}
+
+	public void setCatalogoSelecionado(Catalogo catalogoSelecionado) {
+		this.catalogoSelecionado = catalogoSelecionado;
+	}
 
 	public PesquisarCatalogosBean() {
 		filtro = new CatalogoFiltro();
@@ -40,20 +51,22 @@ public class PesquisarCatalogosBean implements Serializable {
 	public void pesquisar() {
 		catalogosFiltrados = catalogos.filtrados(filtro);
 	}
-	
-	public void excluir() {
-		catalogos.remover(catalogoSelecionado);
+
+	public void excluir(Catalogo catalogo) {
+		catalogos.remover(catalogo);
 		pesquisar();
-		
-		FacesUtil.addInfoMessage("Serviço " + catalogoSelecionado.getSolicitacao() + "Removido Com Sucesso");
+
+		FacesUtil.addInfoMessage("Serviço " + catalogo.getSolicitacao()
+				+ "Removido Com Sucesso");
 	}
 
-	public Catalogo getCatalogoSelecionado() {
-		return catalogoSelecionado;
-	}
-
-	public void setCatalogoSelecionado(Catalogo catalogoSelecionado) {
-		this.catalogoSelecionado = catalogoSelecionado;
+	@PostConstruct
+	public void init() {
+		try {
+			filtro = new CatalogoFiltro();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

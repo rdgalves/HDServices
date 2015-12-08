@@ -45,8 +45,8 @@ public class Catalogos extends BaseRepository {
 	public void remover(Catalogo catalogo) {
 		em.getTransaction().begin();
 		try {
-			em.remove(catalogo);
-			em.merge(catalogo);
+			Catalogo c = em.merge(catalogo);
+			em.remove(c);
 			em.flush();
 			em.getTransaction().commit();
 		} catch (PersistenceException e) {

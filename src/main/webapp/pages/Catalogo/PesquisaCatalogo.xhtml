@@ -28,7 +28,7 @@
 					<p:panelGrid columns="2" id="painel">
 						<p:outputLabel value="Serviço" for="catalogo" />
 						<p:inputText id="catalogo" size="60" maxlength="80"
-							value="#{pesquisarCatalogosBean.filter.catalogo}" />
+							value="#{psSelecaoCatalogoView.filter.catalogo}" />
 
 					</p:panelGrid>
 
@@ -37,15 +37,14 @@
 						<p:toolbarGroup align="center">
 							<p:commandButton value="Pesquisar" id="botaoPesquisar"
 								icon="ui-icon-search"
-								action="#{pesquisarCatalogosBean.pesquisar()}" update="@form" />
+								action="#{psSelecaoCatalogoView.pesquisar()}" update="@form" />
 						</p:toolbarGroup>
 					</p:toolbar>
 
 					<p:dataTable id="catalogosTable"
-						value="#{pesquisarCatalogosBean.catalogosFiltrados}"
-						var="catalogo" style="margin-top: 20px"
-						emptyMessage="Nenhum produto encontrado." rows="10"
-						paginator="true" paginatorAlwaysVisible="false"
+						value="#{psSelecaoCatalogoView.catalogosFiltrados}" var="catalogo"
+						style="margin-top: 20px" emptyMessage="Nenhum produto encontrado."
+						rows="10" paginator="true" paginatorAlwaysVisible="false"
 						paginatorPosition="buttom">
 
 						<p:column headerText="Serviço"
@@ -69,18 +68,20 @@
 								<f:param name="catalogo" value="#{catalogo.idCatalogo}" />
 							</p:button>
 
-							<p:commandButton icon="ui-icon-trash" title="Excluir">
+							<p:commandButton icon="ui-icon-trash" title="Excluir"
+								type="submit"
+								action="#{psSelecaoCatalogoView.excluir(catalogo)}" ajax="true">
 								<p:confirm header="Confirmação"
 									message="Deseja mesmo remover o catalogo?" icon="ui-icon-alert" />
 							</p:commandButton>
+
 						</p:column>
 					</p:dataTable>
 
 					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-						<p:commandButton value="Sim"
-							action="#{pesquisarCatalogosBean.excluir()}"
-							ajax="true" styleClass="ui-confirmdialog-yes"
-							icon="ui-icon-check" />
+						<p:commandButton value="Sim" styleClass="ui-confirmdialog-yes"
+							icon="ui-icon-check">
+						</p:commandButton>
 						<p:commandButton value="Não" type="button"
 							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 					</p:confirmDialog>
