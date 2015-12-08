@@ -10,7 +10,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
-import br.com.hdservices.SessionContext;
 import br.com.hdservices.model.Catalogo;
 import br.com.hdservices.model.Chamado;
 import br.com.hdservices.model.TipoCatalogo;
@@ -44,7 +43,6 @@ public class PesquisarChamadosBean implements Serializable {
 
 	public void setChamadoSelecionado(Chamado chamadoSelecionado) {
 		this.chamadoSelecionado = chamadoSelecionado;
-		SessionContext.getInstance().setChamadoSelecionado(chamadoSelecionado);
 	}
 
 	public PesquisarChamadosBean() {
