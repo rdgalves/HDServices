@@ -65,7 +65,7 @@ public class AlterarCatalogoBean implements Serializable {
 	public String salvar() {
 		cadastroCatalogoService.salvar(catalogo);
 		limpar();
-		FacesUtil.addInfoMessage("Itém inserido no catalogo!");
+		FacesUtil.addInfoMessage("Itém alterado no catalogo!");
 		return "CadastroCatalogo";
 	}
 

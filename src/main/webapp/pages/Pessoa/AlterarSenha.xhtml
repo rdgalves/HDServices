@@ -17,21 +17,38 @@
 				<h1>Alterar Senha</h1>
 				<br /> <br />
 
+				<p:ajaxStatus>
+					<f:facet name="start" aling="center">
+						<h:graphicImage library="images" name="aguarde.gif" />
+					</f:facet>
+					<f:facet name="complete">
+						<h:outputText value="" />
+					</f:facet>
+				</p:ajaxStatus>
+
+				<p:growl id="growl" autoUpdate="true" showDetail="false"
+					sticky="true" />
+
 				<h:form>
+
 					<p:panelGrid columns="2" id="painel" columnClasses="rotulo, campo">
 
 
 						<h:outputText value="Digite sua senha atual: " />
-						<p:password id="nonFeedback" value="" />
+						<p:password id="nonFeedback"
+							value="#{alterarSenhaBean.senhaAtual}" />
 
 						<h:outputText value="Nova Senha: " />
-						<p:password id="pwd1" value="" match="pwd2" label="Password 1"
-							required="true" feedback="true" inline="true" promptLabel="Fraca"
-							weakLabel="Regular" goodLabel="Boa" strongLabel="Excelente" />
+						<p:password id="pwd1" value="#{alterarSenhaBean.novaSenha}"
+							match="pwd2" label="Nova Senha" required="true" feedback="true"
+							inline="true" promptLabel="Fraca" weakLabel="Regular"
+							goodLabel="Boa" strongLabel="Excelente"
+							validatorMessage="Senha inválida!">
+						</p:password>
 
 						<h:outputLabel for="pwd2" value="Confirmar senha: *" />
-						<p:password id="pwd2" value="" label="Digite novamente"
-							required="true" />
+						<p:password id="pwd2" value="{alterarSenhaBean.novaSenha}"
+							label="Digite novamente" required="true" />
 
 					</p:panelGrid>
 
@@ -39,8 +56,9 @@
 					<br />
 					<p:toolbar>
 						<p:toolbarGroup align="right">
-							<p:commandButton value="Alterar" id="botaoAltera123r"
-								icon="ui-icon-circle-check" action="#" ajax="false" />
+							<p:commandButton value="Alterar" id="botaoAlterar1"
+								update="matchGrid" icon="ui-icon-circle-check"
+								action="#{alterarSenhaBean.salvar()}" ajax="false" />
 							<p:button value="Cancelar" />
 						</p:toolbarGroup>
 					</p:toolbar>
@@ -50,7 +68,5 @@
 				</h:form>
 			</div>
 		</div>
-
-
 	</ui:define>
 </ui:composition>

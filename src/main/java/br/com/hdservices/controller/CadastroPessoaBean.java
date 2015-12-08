@@ -53,7 +53,7 @@ public class CadastroPessoaBean implements Serializable {
 		gerarPrimeiraSenha();
 		cadastroPessoaService.salvar(pessoa);
 		limpar();
-		FacesUtil.addInfoMessage("Usuário cadastrado com sucesso!");
+		FacesUtil.addInfoMessage("Dados Salvos com sucesso!");
 		return "CadastroPessoa";
 	}
 

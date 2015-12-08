@@ -38,18 +38,9 @@
 					<p:toolbar>
 						<p:toolbarGroup align="right">
 							<p:commandButton value="Buscar" id="botaoBuscar"
-								icon="ui-icon-search" action="#{dtSelecaoReabrirChamadoView.pesquisar()}"
+								icon="ui-icon-search"
+								action="#{dtSelecaoReabrirChamadoView.pesquisar()}"
 								update="@form" />
-
-
-<!-- 							Botão Reabrir -->
-<!-- 							<p:commandButton type="submit" value="Reabrir" process="@this" -->
-<!-- 								icon="ui-icon-arrowrefresh-1-w" -->
-<!-- 								action="#{dtSelecaoReabrirChamadoView.reabrirChamado()}" ajax="false"> -->
-<!-- 								<f:setPropertyActionListener -->
-<!-- 									value="#{dtSelecaoReabrirChamadoView.chamadoFiltrado}" -->
-<!-- 									target="#{dtSelecaoReabrirChamadoView.chamadoSelecionado}" /> -->
-<!-- 							</p:commandButton> -->
 						</p:toolbarGroup>
 					</p:toolbar>
 
@@ -61,9 +52,6 @@
 						style="margin-top: 20px" emptyMessage="Nenhum chamado aberto!"
 						rows="10" paginator="true" paginatorAlwaysVisible="false"
 						paginatorPosition="buttom">
-
-						<p:column selectionMode="multiple"
-							style="width:16px;text-align:center" />
 
 						<p:column headerText="Chamado"
 							style="text-align: center; width: 50px">
@@ -99,11 +87,11 @@
 							style="text-align: center; width: 90px">
 							<h:outputText value="#{chamado.situacao}" />
 						</p:column>
-						<p:column headerText=""
-							style="text-align: center; width: 90px">
+						<p:column headerText="" style="text-align: center; width: 90px">
 							<p:commandButton type="submit" value="Reabrir" update="@form"
 								icon="ui-icon-arrowrefresh-1-w"
-								action="#{dtSelecaoReabrirChamadoView.reabrirChamado()}" ajax="false">
+								action="#{dtSelecaoReabrirChamadoView.reabrirChamado()}"
+								ajax="false">
 								<f:setPropertyActionListener value="#{chamado}"
 									target="#{dtSelecaoReabrirChamadoView.chamadoSelecionado}" />
 							</p:commandButton>
