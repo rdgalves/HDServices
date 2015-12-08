@@ -1,0 +1,233 @@
+<ui:composition template="/WEB-INF/template/LayoutAdministrador.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:o="http://omnifaces.org/ui">
+
+	<ui:define name="Abertura de Chamado"></ui:define>
+	<ui:define name="corpo">
+
+
+		<div align="center">
+			<div id="abrirChamado" align="center" class="bordaPadrao">
+
+				<H1>Visão de Atendimento</H1>
+				<BR />
+
+				<p:growl id="growl" autoUpdate="true" showDetail="false"
+					sticky="true" />
+
+				<h:form>
+
+					<p:ajaxStatus>
+						<f:facet name="start" align="center">
+							<h:graphicImage library="images" name="loading.gif" />
+						</f:facet>
+						<f:facet name="complete">
+							<h:outputText value="" />
+						</f:facet>
+					</p:ajaxStatus>
+
+					<p:dataTable id="chamadosTable"
+						value="#{acompanharChamadosBean.chamados}" var="chamado"
+						style="margin-top: 20px" emptyMessage="Nenhum chamado aberto!"
+						paginatorAlwaysVisible="true" paginatorPosition="buttom"
+						type="unordered" paginator="true" rows="10" styleClass="paginated"
+						itemType="none">
+
+						<p:column headerText="Chamado"
+							style="text-align: center; width: 50px">
+							<h:outputText value="#{chamado.numeroChamado}" />
+						</p:column>
+
+						<p:column headerText="Tipo De Solicitação"
+							style="text-align: center; width: 150px">
+							<h:outputText
+								value="#{chamado.catalogo.tipo.descricao} → #{chamado.catalogo.solicitacao}" />
+						</p:column>
+
+						<p:column headerText="Relator"
+							style="text-align: center; width: 170px">
+							<h:outputText value="#{chamado.relator.nome}" />
+						</p:column>
+
+						<p:column headerText="Data Abertura"
+							style="text-align: center; width: 60px">
+							<h:outputText value="#{chamado.dataAbertura}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="Hora Abertura"
+							style="text-align: center; width: 40px">
+							<h:outputText value="#{chamado.dataAbertura}">
+								<f:convertDateTime pattern="HH:mm" />
+							</h:outputText>
+						</p:column>
+
+						<p:column style="text-align: center; width: 100px">
+
+							<!-- 			Botão Detalhar				 -->
+							<p:commandButton update="@form:chamadoDetalhe"
+								oncomplete="PF('chamadoDialog').show()" icon="ui-icon-search"
+								title="Detalhar">
+								<f:setPropertyActionListener value="#{chamado}"
+									target="#{acompanharChamadosBean.chamadoSelecionado}" />
+							</p:commandButton>
+
+							<!-- 			Botão Ação				 -->
+							<p:commandButton update="@form:acaoChamado"
+								oncomplete="PF('acaoDialog').show();" icon="ui-icon-circle-plus"
+								title="Registrar Ação">
+								<f:setPropertyActionListener value="#{chamado}"
+									target="#{acompanharChamadosBean.chamadoSelecionado}" />
+							</p:commandButton>
+
+							<!-- 			Botão Detalhar Ações			 -->
+							<p:commandButton update="@form"
+								action="#{acompanharChamadosBean.redireciona()}"
+								icon="ui-icon-circle-zoomin" title="Detalhar Ações">
+								<f:setPropertyActionListener value="#{chamado}"
+									target="#{acompanharChamadosBean.chamadoSelecionado}" />
+							</p:commandButton>
+
+							<!-- 			Botão Encerrar				 -->
+							<p:commandButton update="@form:solucaoChamado"
+								oncomplete="PF('solucaoDialog').show();"
+								icon="ui-icon-circle-close" title="Encerrar Chamado">
+								<f:setPropertyActionListener value="#{chamado}"
+									target="#{acompanharChamadosBean.chamadoSelecionado}" />
+							</p:commandButton>
+
+						</p:column>
+
+					</p:dataTable>
+
+
+
+					<!-- 			Botão Emcaminhar				 -->
+					<!-- 							<p:commandButton type="button" icon="ui-icon-circle-arrow-e" -->
+					<!-- 								onclick="PF('encaminharDialog').show();" title="Encaminhar" -->
+					<!-- 								update="chamadoDialog"> -->
+					<!-- 								<f:setPropertyActionListener value="#{chamado}" -->
+					<!-- 									target="#{acompanharChamadosBean.chamado}" /> -->
+					<!-- 							</p:commandButton> -->
+
+
+					<!-- 			Dialog Detalhar				 -->
+					<p:dialog id="chamadoDetalhe" header="Informações do Chamado"
+						widgetVar="chamadoDialog" modal="true" showEffect="fade"
+						hideEffect="fade" resizable="false">
+
+						<p:outputPanel style="text-align:center;">
+							<p:panelGrid columns="2"
+								rendered="#{not empty acompanharChamadosBean.chamadoSelecionado}"
+								columnClasses="label,value">
+
+								<h:outputText value="Chamado:" />
+								<h:outputText
+									value="#{acompanharChamadosBean.chamadoSelecionado.numeroChamado}" />
+
+								<h:outputText value="Relator:" />
+								<h:outputText
+									value="#{acompanharChamadosBean.chamadoSelecionado.relator.nome}" />
+
+								<h:outputText value="Catalogo: " />
+								<h:outputText
+									value="#{acompanharChamadosBean.chamadoSelecionado.catalogo.tipo.descricao} → #{acompanharChamadosBean.chamadoSelecionado.catalogo.solicitacao}" />
+
+								<h:outputText value="Data de Abertura:" />
+								<h:outputText
+									value="#{acompanharChamadosBean.chamadoSelecionado.dataAbertura}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+
+								<h:outputText value="Hora de Abertura:" />
+								<h:outputText
+									value="#{acompanharChamadosBean.chamadoSelecionado.dataAbertura}">
+									<f:convertDateTime pattern="HH:mm" />
+								</h:outputText>
+
+								<h:outputText value=" SLA:" />
+								<h:outputText
+									value="#{acompanharChamadosBean.chamadoSelecionado.catalogo.sla} Horas" />
+
+
+								<h:outputText value="Descrição:" />
+								<h:outputText
+									value="#{acompanharChamadosBean.chamadoSelecionado.descricao}" />
+							</p:panelGrid>
+						</p:outputPanel>
+					</p:dialog>
+
+					<!-- 			Dialog Ação				 -->
+					<p:dialog id="acaoChamado" header="Registrar Ação"
+						widgetVar="acaoDialog" modal="true" showEffect="fade"
+						hideEffect="fade" resizable="false">
+						<p:outputPanel style="text-align:left;">
+
+							<p:panelGrid columns="1">
+								<h:outputText value="Ação:" />
+								<p:inputTextarea id="descAcao" rows="10" cols="80"
+									maxlength="255" counterTemplate="" autoResize="true"
+									value="#{acompanharChamadosBean.acao.descricao}" />
+							</p:panelGrid>
+
+							<p:panelGrid columns="2">
+								<p:outputLabel for="esforco" value="Esforço:" />
+								<p:calendar id="esforco"
+									value="#{acompanharChamadosBean.acao.tempoEsforco}"
+									pattern="HH:mm" timeOnly="true" />
+							</p:panelGrid>
+						</p:outputPanel>
+
+						<p:commandButton value="Salvar" id="botaoSalvar"
+							action="#{acompanharChamadosBean.salvarAcao()}"
+							icon="ui-icon-check" ajax="false" />
+						<p:button value="Cancelar"
+							outcome="/pages/Atendimento/AcompanharChamados.xhtml" />
+					</p:dialog>
+
+					<!-- 			Dialog Encerrar				 -->
+					<p:dialog id="solucaoChamado" header="Solução"
+						widgetVar="solucaoDialog" modal="true" showEffect="fade"
+						hideEffect="fade" resizable="false">
+						<p:outputPanel style="text-align:left;">
+
+							<p:panelGrid columns="1">
+								<p:inputTextarea id="solucao" rows="10" cols="80"
+									maxlength="400" counterTemplate="" autoResize="true"
+									value="#{acompanharChamadosBean.chamado.solucao}" />
+							</p:panelGrid>
+
+							<p:commandButton value="Encerrar" id="botaoEncerrar"
+								action="#{acompanharChamadosBean.encerrarChamado()}"
+								icon="ui-icon-check" ajax="false" />
+							<p:button value="Cancelar"
+								outcome="/pages/Atendimento/AcompanharChamados.xhtml" />
+						</p:outputPanel>
+					</p:dialog>
+
+					<!-- 			Dialog Encaminhar				 -->
+					<!-- 					<p:dialog header="Encaminhar" widgetVar="encaminharDialog" -->
+					<!-- 						modal="true" showEffect="blind" hideEffect="explode" -->
+					<!-- 						resizable="false"> -->
+					<!-- 						<p:outputPanel id="encaminharDialog" style="text-align:center;"> -->
+					<!-- 							<p:panelGrid columns="1"> -->
+					<!-- 								<p:inputTextarea id="encaminhar" rows="10" cols="80" -->
+					<!-- 									maxlength="400" counterTemplate="" autoResize="true" value="" /> -->
+					<!-- 							</p:panelGrid> -->
+					<!-- 							<p:commandButton value="Encaminhar" id="botaoEncaminhar" -->
+					<!-- 								icon="ui-icon-check" ajax="false" /> -->
+					<!-- 							<p:button value="Cancelar" -->
+					<!-- 								outcome="/pages/Atendimento/AcompanharChamados.xhtml" /> -->
+					<!-- 						</p:outputPanel> -->
+					<!-- 					</p:dialog> -->
+				</h:form>
+				<br /> <br /> <br />
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

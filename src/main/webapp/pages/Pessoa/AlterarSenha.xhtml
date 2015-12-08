@@ -1,0 +1,56 @@
+<ui:composition template="/WEB-INF/template/LayoutAdministrador.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:o="http://omnifaces.org/ui">
+
+
+	<ui:define name="titulo">Perfil</ui:define>
+	<ui:define name="corpo">
+
+		<div align="center">
+			<div id="perfil" align="center" class="bordaPadrao">
+
+
+				<h1>Alterar Senha</h1>
+				<br /> <br />
+
+				<h:form>
+					<p:panelGrid columns="2" id="painel" columnClasses="rotulo, campo">
+
+
+						<h:outputText value="Digite sua senha atual: " />
+						<p:password id="nonFeedback" value="" />
+
+						<h:outputText value="Nova Senha: " />
+						<p:password id="pwd1" value="" match="pwd2" label="Password 1"
+							required="true" feedback="true" inline="true" promptLabel="Fraca"
+							weakLabel="Regular" goodLabel="Boa" strongLabel="Excelente" />
+
+						<h:outputLabel for="pwd2" value="Confirmar senha: *" />
+						<p:password id="pwd2" value="" label="Digite novamente"
+							required="true" />
+
+					</p:panelGrid>
+
+					<br />
+					<br />
+					<p:toolbar>
+						<p:toolbarGroup align="right">
+							<p:commandButton value="Alterar" id="botaoAltera123r"
+								icon="ui-icon-circle-check" action="#" ajax="false" />
+							<p:button value="Cancelar" />
+						</p:toolbarGroup>
+					</p:toolbar>
+
+					<br />
+					<br />
+				</h:form>
+			</div>
+		</div>
+
+
+	</ui:define>
+</ui:composition>

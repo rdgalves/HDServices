@@ -1,0 +1,176 @@
+@CHARSET "UTF-8";
+
+body {
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 0px;
+	font-weight: normal;
+}
+
+header {
+	padding: 5px 0px;
+	margin-bottom: 20px;
+	height: 125px;
+	background-color: #3CB371;
+	color: #fff;
+	box-shadow: 0px 2px 2px #000000;
+}
+
+h1 {
+	font-size: 24px;
+	font-weight: 500;
+	padding: 0px;
+	margin: 0px;
+	margin-top: 40px;
+}
+
+footer {
+	padding: 0px 8px;
+	margin-bottom: 10px;
+}
+
+#loginFooter{
+	padding: 0px 8px;
+	margin-bottom: 10px;
+	margin-top: 370px;
+}
+
+#linkSenha{
+	margin-left: 220px;
+	margin-top: -45px;
+	
+}
+
+#botaoLogin{
+	border: 1px;
+	border-bottom-style: solid; 
+	width: 150px;
+	margin-top: 200px;
+}
+
+#campoLogin{
+	border: 1px;
+	border-bottom-style: solid; 
+	width:400px;
+}
+
+#tituloFixo {
+	margin-top: -40px;	
+}
+
+#logo {
+	margin-top: -10px;
+}
+
+#conteudo {
+	padding: 0px 8px;
+}
+
+#login-dialog {
+	width:420px;
+	height: 310px;
+	margin: auto;
+	margin-top: 120px;
+	background-color: #FFFFFF;
+	border-radius: 8px;
+	border: 2px solid #EEE9E9;
+	box-shadow: 1px 2px 2px  #C0C0C0;
+}
+
+#logo-login {
+	position: relative;
+	top: 5%;
+	margin-left: 80px
+}
+
+#frmLogin {
+	margin-left: 37px;
+	margin-top: 15px;
+	float: inherit;
+}
+
+#logo-footer {
+	
+}
+
+#footer-login {
+	position: relative;
+	margin-bottom: 10px;
+	top: 700px;
+}
+
+#corpo-login {
+	background-color: #F0FFF0;
+}
+
+#MenuBar {
+	margin-top: -18px;
+}
+
+#abrirChamado{
+	background-color: #FFFFFF;
+}
+
+.bordaPadrao{
+	
+	box-shadow: 0px 2px 2px 1px #006600;
+	border-radius: 3px 3px 3px 3px;
+	width: 90%;
+	height: 100%;
+	background-color: #FFFFFF;
+	padding: 5px 0px;
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+
+.rotulo{
+	width: 150px;
+	margin: 0 auto;
+}
+
+.campo{
+	
+}
+
+.ui-panelgrid td {
+	height: 34px;
+}
+
+.ui-toolbar-group-center{
+	height: 45px;
+	width: 90%;
+
+}
+
+#j_idt36:j_idt54{
+	width: 90%;
+}
+
+.ui-toolbar-group-center {
+	height: 31px;
+}
+
+
+
+/*Botão*/
+.ui-toolbar-group-center button{	
+	height: 30px;
+	width: 130px;	
+}
+
+
+/*Class Div Botão*/
+.ui-toolbar-group-right{
+	margin-right: 43.5%;
+	
+}
+
+.ui-datatable-tablewrapper{
+	margin-top: 10px;
+	width: 97%;
+}
+
+.abrirChamado{
+	border: none;
+}

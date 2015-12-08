@@ -1,0 +1,72 @@
+<ui:composition template="/WEB-INF/template/LayoutAdministrador.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:o="http://omnifaces.org/ui">
+
+	<ui:define name="Cadastro de Usuário"></ui:define>
+	<ui:define name="corpo">
+		<div align="center">
+			<div id="abrirChamado" align="center" class="bordaPadrao">
+
+				<H1>Ações registradas</H1>
+				<BR />
+				<p:toolbar>
+					<p:toolbarGroup style="margin-left: 20px" align="left">
+						<p:button value="Voltar" id="botaoVoltar"
+							icon="ui-icon-arrowreturnthick-1-w"
+							outcome="/pages/Atendimento/AcompanharChamados.xhtml" />
+					</p:toolbarGroup>
+				</p:toolbar>
+
+				<h:form>
+					<p:dataTable id="chamadosTable" value="#{listarAcoesBean.acoes}"
+						var="acao" style="margin-top: 20px"
+						emptyMessage="Nenhuma Acão Registrada!" rows="10" paginator="true"
+						paginatorAlwaysVisible="false" paginatorPosition="buttom">
+
+						<p:column headerText="Ação" style="text-align: left; width: 50px">
+							<br />
+
+							<h:outputText value="Chamado: #{acao.chamado.numeroChamado}" />
+							<br />
+
+							<h:outputText value="Relator da Ação: #{acao.especialista.nome}" />
+							<br />
+
+							<h:outputText value="Data da Ação: " />
+							<h:outputText value="#{acao.dataRegistro}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:outputText>
+							<br />
+
+							<h:outputText value="Hora da Ação: " />
+							<h:outputText value="#{acao.dataRegistro}">
+								<f:convertDateTime pattern="HH:mm" />
+							</h:outputText>
+							<br />
+
+							<h:outputText value="Esforco: " />
+							<h:outputText value="#{acao.tempoEsforco}">
+								<f:convertDateTime pattern="HH:mm" />
+							</h:outputText>
+							<br />
+							<p:panelGrid columns="1" style="text-align: center;">
+								<h:outputText value="Ação" />
+								<p:inputTextarea id="descricao" rows="8" cols="150"
+									maxlength="255" counterTemplate="" autoResize="true"
+									value="#{acao.descricao}" readonly="true" />
+							</p:panelGrid>
+							<br />
+						</p:column>
+
+
+					</p:dataTable>
+
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title><ui:insert nome="titulo">HDServices - Sistema de gerenciamento de Chamados</ui:insert></title>
+	<h:outputStylesheet library="css" name="sistema.css" />
+</h:head>
+<h:body style="background-color: #ADEAEA">
+	<header>
+	<div id="logo" align="center">
+		<h:link>
+			<h:graphicImage library="images" name="logo-hdservices.png"
+				width="120" height="70" />
+		</h:link>
+	</div>
+	<div id="tituloFixo">
+		<h1 align="center" style="color: black">Central de Atendimento</h1>
+	</div>
+	</header>
+	<div id="MenuBar" class="posicaoMenu">
+		<h:form id="frmMenu">
+			<p:menubar autoDisplay="false">
+				<p:submenu label="Perfil" icon="icon-qq">
+					<p:menuitem value="Dados Pessoais" url="#" />
+					<p:menuitem value="Redefinir Senha" />
+				</p:submenu>
+
+				<p:submenu label="Chamado" icon=" icon-plus-1">
+					<p:menuitem value="Novo" url="#" />
+					<p:menuitem value="Listar" />
+					<p:menuitem value="Pesquisar" icon="icon-search-outline" />
+				</p:submenu>
+
+				<p:submenu label="Atendimento" icon="">
+					<p:menuitem value="Fila de atendimento" url="#" />
+					<p:menuitem value="Visão de Atendimento" />
+				</p:submenu>
+
+				<f:facet name="options">
+					<p:commandButton type="button" value="Sair" icon="ui-icon-extlink" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+	</div>
+</h:body>
+
+<!-- <div id="conteudo"> -->
+<!-- 	<ui:insert name="corpo" /> -->
+<!-- </div> -->
+
+<p:separator style="margin-top: 20px" />
+
+<footer>
+<div align="center">
+	HDServices - Sistema de Gerenciamento de Chamados <br /> <a
+		href="http://www.institutofatima.edu.br/" id="link-rodape">Instituto
+		Superior Nossa Senhora de Fátima</a><br />
+
+	<h:graphicImage id="logo-footer" library="images"
+		name="logo-fatima.png" width="300" height="60" />
+</div>
+</footer>
+</html>

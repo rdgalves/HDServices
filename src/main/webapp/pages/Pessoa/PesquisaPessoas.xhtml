@@ -1,0 +1,104 @@
+<ui:composition template="/WEB-INF/template/LayoutAdministrador.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="Cadastro de Usuário"></ui:define>
+	<ui:define name="corpo">
+		<div align="center">
+			<div id="abrirChamado" align="center" class="bordaPadrao">
+
+				<H1>Pesquisa de usuário</H1>
+				<BR />
+
+				<p:ajaxStatus>
+					<f:facet name="start" aling="center">
+						<h:graphicImage library="images" name="loading.gif" />
+					</f:facet>
+					<f:facet name="complete">
+						<h:outputText value="" />
+					</f:facet>
+				</p:ajaxStatus>
+
+
+				<p:messages autoUpdate="true" />
+
+				<h:form action="">
+					<p:panelGrid columns="2" id="painel">
+						<p:outputLabel value="Matricula" for="matricula" />
+						<p:inputMask id="matricula"
+							value="#{pesquisarPessoasBean.filter.matricula}" mask="999-9"
+							size="20" maxlength="20"/>
+
+						<p:outputLabel value="Nome" for="nome" />
+						<p:inputText id="nome" size="60" maxlength="80"
+							value="#{pesquisarPessoasBean.filter.nome}" />
+
+					</p:panelGrid>
+
+					<br />
+					<p:toolbar>
+						<p:toolbarGroup align="center">
+							<p:commandButton value="Pesquisar" id="botaoPesquisar"
+								icon="ui-icon-search"
+								action="#{pesquisarPessoasBean.pesquisar()}" update="@form" />
+						</p:toolbarGroup>
+					</p:toolbar>
+
+					<p:dataTable id="pessoasTable"
+						value="#{pesquisarPessoasBean.pessoasFiltradas}" var="pessoa"
+						style="margin-top: 20px" emptyMessage="Nenhum produto encontrado."
+						rows="10" paginator="true" paginatorAlwaysVisible="false"
+						paginatorPosition="buttom">
+
+						<p:column headerText="Matrícula"
+							style="text-align: center; width: 50px">
+							<h:outputText value="#{pessoa.matricula}" />
+						</p:column>
+
+						<p:column headerText="Nome"
+							style="text-align: center; width: 250px">
+							<h:outputText value="#{pessoa.nome}" />
+						</p:column>
+
+						<p:column headerText="E-mail"
+							style="text-align: center; width: 250px">
+							<h:outputText value="#{pessoa.email}" />
+						</p:column>
+
+						<p:column headerText="Área"
+							style="text-align: center; width: 40px">
+							<h:outputText value="#{pessoa.area}" />
+						</p:column>
+
+						<p:column headerText="Perfil"
+							style="text-align: center; width: 100px">
+							<h:outputText value="#{pessoa.perfil}" />
+						</p:column>
+
+						<p:column headerText="Sexo"
+							style="text-align: center; width: 100px">
+							<h:outputText value="#{pessoa.sexo}" />
+						</p:column>
+
+						<p:column headerText="Estado"
+							style="text-align: center; width: 100px">
+							<h:outputText value="#{pessoa.status}" />
+						</p:column>
+
+						<p:column style="text-align: center; width: 100px">
+							<p:button outcome="/pages/Pessoa/CadastroPessoa"
+								icon="ui-icon-pencil" title="Editar">
+								<f:param name="pessoa" value="#{pessoa.matricula}" />
+							</p:button>
+						</p:column>
+
+					</p:dataTable>
+
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

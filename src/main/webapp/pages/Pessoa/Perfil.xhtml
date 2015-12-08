@@ -1,0 +1,41 @@
+<ui:composition template="/WEB-INF/template/LayoutAdministrador.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:o="http://omnifaces.org/ui">
+
+
+	<ui:define name="titulo">Perfil</ui:define>
+	<ui:define name="corpo">
+
+		<div align="center">
+			<div id="perfil" align="center" class="bordaPadrao">
+				<p:panelGrid columns="2" id="painel"
+					style="width: 50%; margin-top: 20px;" columnClasses="rotulo, campo">
+					<h:graphicImage library="images" name="fotoperfil.png"
+						width="150px" height="150px" />
+					<h3>#{abrirChamadoBean.usuarioSessao.nome}</h3>
+
+					<p:outputLabel value="Matricula: " />
+					<p:outputLabel value="#{abrirChamadoBean.usuarioSessao.matricula}" />
+
+					<p:outputLabel value="Email: " />
+					<p:outputLabel value="#{abrirChamadoBean.usuarioSessao.email}" />
+
+					<p:outputLabel value="Área: " />
+					<p:outputLabel value="#{abrirChamadoBean.usuarioSessao.area}" />
+
+					<p:outputLabel value="Perfil: " />
+					<p:outputLabel value="#{abrirChamadoBean.usuarioSessao.perfil}" />
+
+				</p:panelGrid>
+
+				<br /> <br />
+			</div>
+		</div>
+
+
+	</ui:define>
+</ui:composition>

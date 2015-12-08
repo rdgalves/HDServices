@@ -1,0 +1,180 @@
+<ui:composition template="/WEB-INF/template/LayoutAdministrador.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="Pesquisa de Chamado"></ui:define>
+	<ui:define name="corpo">
+		<div align="center">
+			<div id="abrirChamado" align="center" class="bordaPadrao">
+
+				<H1>Pesquisa de Chamados</H1>
+				<BR />
+
+				<p:ajaxStatus>
+					<f:facet name="start" aling="center">
+						<h:graphicImage library="images" name="loading.gif" />
+					</f:facet>
+					<f:facet name="complete">
+						<h:outputText value="" />
+					</f:facet>
+				</p:ajaxStatus>
+
+
+				<p:messages autoUpdate="true" />
+
+				<h:form action="">
+					<p:panelGrid columns="2" id="painel">
+
+						<p:outputLabel value="Número" />
+						<h:panelGroup>
+							<p:inputText size="10" maxlength="20"
+								value="#{pesquisarChamadosBean.filtro.numeroDe}" />
+							a
+							<p:inputText size="10" maxlength="20"
+								value="#{pesquisarChamadosBean.filtro.numeroAte}" />
+						</h:panelGroup>
+
+						<p:outputLabel value="Data Abertura" />
+						<h:panelGroup>
+							<p:calendar size="10" maxlength="20" pattern="dd/MM/yyyy"
+								value="#{pesquisarChamadosBean.filtro.dataCriacaoDe}" />
+							a
+							<p:calendar size="10" maxlength="20" pattern="dd/MM/yyyy"
+								value="#{pesquisarChamadosBean.filtro.dataCriacaoAte}" />
+						</h:panelGroup>
+
+						<p:outputLabel value="Relator" />
+						<p:inputText size="60" maxlength="80"
+							value="#{pesquisarChamadosBean.filtro.nomeRelator}" />
+
+						<p:outputLabel value="Atendente" />
+						<p:inputText size="60" maxlength="80"
+							value="#{pesquisarChamadosBean.filtro.nomeAtendente}" />
+
+						<p:outputLabel value="Tipo" />
+						<p:selectOneMenu value="#{pesquisarChamadosBean.filtro.tipo}"
+							converter="#{tipoCatalogoConverter}">
+							<f:selectItem itemLabel="" itemValue="" />
+							<f:selectItems value="#{pesquisarChamadosBean.tiposCatalogo}"
+								var="tipo" itemLabel="#{tipo.descricao}" itemValue="#{tipo}" />
+						</p:selectOneMenu>
+					</p:panelGrid>
+					<br />
+					<p:toolbar>
+						<p:toolbarGroup align="center">
+							<p:commandButton value="Pesquisar" id="botaoPesquisar"
+								icon="ui-icon-search"
+								action="#{pesquisarChamadosBean.pesquisar()}" update="@form" />
+						</p:toolbarGroup>
+					</p:toolbar>
+					<br />
+					<br />
+
+					<p:dataTable id="chamadosTable"
+						value="#{pesquisarChamadosBean.chamadosFiltrados}" var="chamado"
+						style="margin-top: 20px" emptyMessage="Chamado não encontrado!"
+						rows="10" paginator="true" paginatorAlwaysVisible="false"
+						paginatorPosition="buttom">
+
+						<p:column headerText="Chamado"
+							style="text-align: center; width: 50px">
+							<h:outputText value="#{chamado.numeroChamado}" />
+						</p:column>
+
+						<p:column headerText="Tipo De Solicitação"
+							style="text-align: center; width: 250px">
+							<h:outputText
+								value="#{chamado.catalogo.tipo.descricao} → #{chamado.catalogo.solicitacao}" />
+						</p:column>
+
+						<p:column headerText="Relator"
+							style="text-align: center; width: 250px">
+							<h:outputText value="#{chamado.relator.nome}" />
+						</p:column>
+
+						<p:column headerText="Data Abertura"
+							style="text-align: center; width: 60px">
+							<h:outputText value="#{chamado.dataAbertura}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="Hora Abertura"
+							style="text-align: center; width: 40px">
+							<h:outputText value="#{chamado.dataAbertura}">
+								<f:convertDateTime pattern="HH:mm" />
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="Estado"
+							style="text-align: center; width: 50px">
+							<h:outputText value="#{chamado.situacao}" />
+						</p:column>
+
+						<p:column style="text-align: center; width: 100px">
+
+							<!-- 			Botão Detalhar				 -->
+							<p:commandButton update="@form:chamadoDetalhe"
+								oncomplete="PF('chamadoDialog').show()" icon="ui-icon-search"
+								title="Detalhar">
+								<f:setPropertyActionListener value="#{chamado}"
+									target="#{psSelecaoView.chamadoSelecionado}" />
+							</p:commandButton>
+
+						</p:column>
+					</p:dataTable>
+
+
+					<p:dialog id="chamadoDetalhe" header="Informações do Chamado"
+						widgetVar="chamadoDialog" modal="true" showEffect="fade"
+						hideEffect="fade" resizable="false">
+						<p:outputPanel style="text-align:center;">
+							<p:panelGrid columns="2"
+								rendered="#{not empty psSelecaoView.chamadoSelecionado}"
+								columnClasses="label,value">
+
+								<h:outputText value="Chamado:" />
+								<h:outputText
+									value="#{psSelecaoView.chamadoSelecionado.numeroChamado}" />
+
+								<h:outputText value="Relator:" />
+								<h:outputText
+									value="#{psSelecaoView.chamadoSelecionado.relator.nome}" />
+
+								<h:outputText value="Catalogo: " />
+								<h:outputText
+									value="#{psSelecaoView.chamadoSelecionado.catalogo.tipo.descricao} → #{dtSelecaoView.chamadoSelecionado.catalogo.solicitacao}" />
+
+								<h:outputText value="Data de Abertura:" />
+								<h:outputText
+									value="#{psSelecaoView.chamadoSelecionado.dataAbertura}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+
+
+								<h:outputText value="Hora de Abertura:" />
+								<h:outputText
+									value="#{psSelecaoView.chamadoSelecionado.dataAbertura}">
+									<f:convertDateTime pattern="HH:mm" />
+								</h:outputText>
+
+								<h:outputText value=" SLA:" />
+								<h:outputText
+									value="#{psSelecaoView.chamadoSelecionado.catalogo.sla} Horas" />
+
+
+								<h:outputText value="Descrição:" />
+								<h:outputText
+									value="#{psSelecaoView.chamadoSelecionado.descricao}" />
+
+							</p:panelGrid>
+						</p:outputPanel>
+					</p:dialog>
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

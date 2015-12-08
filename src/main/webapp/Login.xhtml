@@ -1,0 +1,51 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="Abertura de Chamado"></ui:define>
+	<ui:define name="corpo">
+
+		<p:dialog id="dialog" header="Login" visible="true" resizable="false"
+			minWidth="445" width="445" height="220" showEffect="explode"
+			position="center" modal="false" draggable="true" closable="false">
+
+			<p:growl id="growl" autoUpdate="true" showDetail="false"
+				sticky="true" />
+
+			<div id="frmLogin">
+				<h:form align="left" method="post">
+
+					<p:ajaxStatus>
+						<f:facet name="start" align="center">
+							<h:graphicImage library="images" name="loading.gif" />
+						</f:facet>
+						<f:facet name="complete">
+							<h:outputText value="" />
+						</f:facet>
+					</p:ajaxStatus>
+
+					<h:panelGrid columns="2">
+						<p:outputLabel value="Matricula" />
+						<p:inputMask id="taxId" value="#{loginBean.matricula}"
+							mask="999-9" size="30" />
+
+						<p:outputLabel value="Senha" />
+						<p:password size="30" value="#{loginBean.senha}" />
+
+						<br />
+
+						<div id="botaoEntrar" align="left">
+							<h:panelGroup>
+								<p:commandButton action="#{loginBean.doLogin()}" value="Entrar" />
+							</h:panelGroup>
+						</div>
+					</h:panelGrid>
+				</h:form>
+			</div>
+		</p:dialog>
+
+	</ui:define>
+</ui:composition>

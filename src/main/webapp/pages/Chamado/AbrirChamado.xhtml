@@ -1,0 +1,87 @@
+<ui:composition template="/WEB-INF/template/LayoutAdministrador.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="Abertura de Chamado"></ui:define>
+	<ui:define name="corpo">
+		<div align="center">
+			<div id="abrirChamado" align="center" class="bordaPadrao">
+				<f:metadata>
+					<f:event listener="#{abrirChamadoBean.inicializar() }"
+						type="preRenderView"></f:event>
+				</f:metadata>
+
+
+				<H1>Abertura de chamados</H1>
+				<BR />
+
+				<p:ajaxStatus>
+					<f:facet name="start" aling="center">
+						<h:graphicImage library="images" name="aguarde.gif" />
+					</f:facet>
+					<f:facet name="complete">
+						<h:outputText value="" />
+					</f:facet>
+				</p:ajaxStatus>
+
+				<p:growl id="growl" autoUpdate="true" showDetail="false"
+						sticky="false" />
+
+				<h:form>
+					<p:panelGrid columns="2">
+
+						<p:outputLabel value="Solicitante" for="solicitante" />
+						<p:inputText id="solicitante" size="60" maxlength="80"
+							value="#{abrirChamadoBean.usuarioSessao.nome}" readonly="true" />
+
+						<p:outputLabel value="Departamento" for="departamento" />
+						<p:inputText id="departamento" size="60" maxlength="80"
+							value="#{abrirChamadoBean.usuarioSessao.area}" readonly="true" />
+
+						<p:outputLabel value="Tipo" />
+						<p:selectOneMenu value="#{abrirChamadoBean.tipo}"
+							converter="#{tipoCatalogoConverter}" maxlength="60" required="true">
+							<f:selectItem itemLabel="Selecione um Tipo" itemValue="" />
+							<f:selectItems value="#{abrirChamadoBean.tiposCatalogo}"
+								var="tipo" itemLabel="#{tipo.descricao}" itemValue="#{tipo}" />
+							<p:ajax listener="#{abrirChamadoBean.carregarCatalogos()}"
+								update="catalogo" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Serviço" for="catalogo" />
+						<p:selectOneMenu id="catalogo"
+							value="#{abrirChamadoBean.chamado.catalogo}" maxlength="60"
+							required="true">
+							<f:selectItem itemLabel="Selecione um Serviço" itemValue="" />
+							<f:selectItems value="#{abrirChamadoBean.listaCatalogos}"
+								var="catalogo" itemLabel="#{catalogo.solicitacao}"
+								itemValue="#{catalogo}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Descrição" for="descricao" />
+						<p:inputTextarea id="descricao" rows="10" cols="80"
+							maxlength="255"  counterTemplate="" autoResize="true"
+							value="#{abrirChamadoBean.chamado.descricao}" required="true" />
+					</p:panelGrid>
+
+					<br />
+					<br />
+					<br />
+					<br />
+					<p:toolbar>
+						<p:toolbarGroup align="right">
+							<p:commandButton value="Gravar" id="botaoSalvar"
+								icon="ui-icon-check" action="#{abrirChamadoBean.salvar()}"
+								ajax="false" process="@this" />
+							<p:button value="Cancelar" outcome="/pages/Chamado/AbrirChamado" />
+						</p:toolbarGroup>
+					</p:toolbar>
+				</h:form>
+				<br /> <br /> <br />
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

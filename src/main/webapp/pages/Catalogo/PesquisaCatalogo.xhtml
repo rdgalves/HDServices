@@ -1,0 +1,91 @@
+<ui:composition template="/WEB-INF/template/LayoutAdministrador.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="Cadastro de Usuário"></ui:define>
+	<ui:define name="corpo">
+		<div align="center">
+			<div id="pesquisarCatalogo" align="center" class="bordaPadrao">
+
+				<H1>Pesquisa de Catalogos</H1>
+				<BR />
+
+				<p:ajaxStatus>
+					<f:facet name="start" aling="center">
+						<h:graphicImage library="images" name="loading.gif" />
+					</f:facet>
+					<f:facet name="complete">
+						<h:outputText value="" />
+					</f:facet>
+				</p:ajaxStatus>
+
+				<p:messages autoUpdate="true" />
+
+				<h:form>
+					<p:panelGrid columns="2" id="painel">
+						<p:outputLabel value="Serviço" for="catalogo" />
+						<p:inputText id="catalogo" size="60" maxlength="80"
+							value="#{pesquisarCatalogosBean.filter.catalogo}" />
+
+					</p:panelGrid>
+
+					<br />
+					<p:toolbar>
+						<p:toolbarGroup align="center">
+							<p:commandButton value="Pesquisar" id="botaoPesquisar"
+								icon="ui-icon-search"
+								action="#{pesquisarCatalogosBean.pesquisar()}" update="@form" />
+						</p:toolbarGroup>
+					</p:toolbar>
+
+					<p:dataTable id="catalogosTable"
+						value="#{pesquisarCatalogosBean.catalogosFiltrados}"
+						var="catalogo" style="margin-top: 20px"
+						emptyMessage="Nenhum produto encontrado." rows="10"
+						paginator="true" paginatorAlwaysVisible="false"
+						paginatorPosition="buttom">
+
+						<p:column headerText="Serviço"
+							style="text-align: center; width: 150px">
+							<h:outputText value="#{catalogo.solicitacao}" />
+						</p:column>
+
+						<p:column headerText="Tipo"
+							style="text-align: center; width: 150px">
+							<h:outputText value="#{catalogo.tipo.descricao}" />
+						</p:column>
+
+						<p:column headerText="SLA em Horas"
+							style="text-align: center; width: 50px">
+							<h:outputText value="#{catalogo.sla}" />
+						</p:column>
+
+						<p:column style="text-align: center; width: 50px">
+							<p:button outcome="/pages/Catalogo/AlterarCatalogo"
+								icon="ui-icon-pencil" title="Editar">
+								<f:param name="catalogo" value="#{catalogo.idCatalogo}" />
+							</p:button>
+
+							<p:commandButton icon="ui-icon-trash" title="Excluir">
+								<p:confirm header="Confirmação"
+									message="Deseja mesmo remover o catalogo?" icon="ui-icon-alert" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="Sim"
+							action="#{pesquisarCatalogosBean.excluir()}"
+							ajax="true" styleClass="ui-confirmdialog-yes"
+							icon="ui-icon-check" />
+						<p:commandButton value="Não" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</p:confirmDialog>
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

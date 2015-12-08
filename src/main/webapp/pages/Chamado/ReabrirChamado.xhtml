@@ -1,0 +1,107 @@
+<ui:composition template="/WEB-INF/template/LayoutAdministrador.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="Abertura de Chamado"></ui:define>
+	<ui:define name="corpo">
+		<div align="center">
+			<div id="reabrirChamado" align="center" class="bordaPadrao">
+
+				<H1>Reabertura de chamados</H1>
+				<BR />
+
+				<p:ajaxStatus>
+					<f:facet name="start" aling="center">
+						<h:graphicImage library="images" name="aguarde.gif" />
+					</f:facet>
+					<f:facet name="complete">
+						<h:outputText value="" />
+					</f:facet>
+				</p:ajaxStatus>
+
+				<p:growl id="growl" autoUpdate="true" showDetail="false"
+					sticky="false" />
+
+				<h:form id="frmPesquisa">
+					<p:panelGrid columns="2">
+
+						<p:outputLabel value="Chamado" for="chamado" />
+						<p:inputText id="chamado" size="60" maxlength="80"
+							value="#{reabrirChamadoBean.chamado.numeroChamado}"
+							required="true" />
+					</p:panelGrid>
+					<br />
+
+					<p:toolbar>
+						<p:toolbarGroup align="right">
+							<p:commandButton value="Buscar" id="botaoBuscar"
+								icon="ui-icon-search" action="#{reabrirChamadoBean.pesquisar()}"
+								update="@form" />
+
+
+							<!--Botão Reabrir-->
+							<p:commandButton type="submit" value="Reabrir" process="@this"
+								icon="ui-icon-arrowrefresh-1-w"
+								action="#{reabrirChamadoBean.reabrirChamado(chamado)}"
+								ajax="false" />
+						</p:toolbarGroup>
+					</p:toolbar>
+
+
+					<p:dataTable id="chamadosTable"
+						value="#{reabrirChamadoBean.chamadoFiltrado}"
+						selection="#{filaAtendimentoBean.chamadosSelecionados}"
+						rowKey="#{chamado.numeroChamado}" var="chamado"
+						style="margin-top: 20px" emptyMessage="Nenhum chamado aberto!"
+						rows="10" paginator="true" paginatorAlwaysVisible="false"
+						paginatorPosition="buttom">
+
+						<p:column selectionMode="multiple"
+							style="width:16px;text-align:center" />
+
+						<p:column headerText="Chamado"
+							style="text-align: center; width: 50px">
+							<h:outputText value="#{chamado.numeroChamado}" />
+						</p:column>
+
+						<p:column headerText="Tipo De Solicitação"
+							style="text-align: center; width: 250px">
+							<h:outputText
+								value="#{chamado.catalogo.tipo.descricao} → #{chamado.catalogo.solicitacao}" />
+						</p:column>
+
+						<p:column headerText="Relator"
+							style="text-align: center; width: 230px">
+							<h:outputText value="#{chamado.relator.nome}" />
+						</p:column>
+
+						<p:column headerText="Data Abertura"
+							style="text-align: center; width: 60px">
+							<h:outputText value="#{chamado.dataAbertura}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="Hora Abertura"
+							style="text-align: center; width: 40px">
+							<h:outputText value="#{chamado.dataAbertura}">
+								<f:convertDateTime pattern="HH:mm" />
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="Estado"
+							style="text-align: center; width: 90px">
+							<h:outputText value="#{chamado.situacao}" />
+						</p:column>
+
+					</p:dataTable>
+
+				</h:form>
+				<br /> <br /> <br />
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

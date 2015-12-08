@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title><ui:insert nome="titulo">HDServices - Sistema de gerenciamento de Chamados</ui:insert></title>
+	<h:outputStylesheet library="css" name="sistema.css" />
+</h:head>
+<h:body style="background-color: #F0FFFF">
+
+	<header>
+	<div id="logo" align="center">
+		<h:link>
+			<h:graphicImage library="images" name="HDServicesLayout3.png"
+				width="100%"  />
+		</h:link>
+	</div>
+	<div id="tituloFixo">
+		<!-- 		<h1 align="center" style="color: black">Central de Atendimento</h1> -->
+	</div>
+	</header>
+	<div id="conteudo">
+		<ui:insert name="corpo" />
+	</div>
+	
+	
+
+	<footer id="loginFooter">
+	<p:separator style="margin-top: 20px" />
+	<div align="center">
+		<br /> HDServices - Sistema de Gerenciamento de Chamados <br /> <a
+			href="http://www.institutofatima.edu.br/" id="link-rodape"> <br />
+			<h:graphicImage id="logo-footer" library="images" name="logo64.png"
+				width="240" height="50" />
+		</a>
+	</div>
+	</footer>
+</h:body>
+</html>

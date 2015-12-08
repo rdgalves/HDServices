@@ -1,0 +1,90 @@
+<ui:composition template="/WEB-INF/template/LayoutAdministrador.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:o="http://omnifaces.org/ui">
+
+
+	<ui:define name="titulo">#{cadastroPessoaBean.editando ? 'Edição de Usuário' : 'Cadastro de Usuário'}</ui:define>
+	<ui:define name="corpo">
+		<f:metadata>
+			<o:viewParam name="pessoa" value="#{cadastroPessoaBean.pessoa}" />
+		</f:metadata>
+
+
+		<div align="center">
+			<div id="abrirChamado" align="center" class="bordaPadrao">
+
+				<h:form>
+					<h1>#{cadastroPessoaBean.editando ? 'Edição de Usuário' :
+						'Cadastro de Usuário'}</h1>
+					<BR />
+
+					<p:growl id="growl" autoUpdate="true" showDetail="false" sticky="true" />
+
+					<p:panelGrid columns="2" id="painel"
+						style="width: 90%; margin-top: 20px;"
+						columnClasses="rotulo, campo">
+						
+						<p:outputLabel value="Matricula" for="matricula" />
+						<p:inputMask id="matricula"
+							value="#{cadastroPessoaBean.pessoa.matricula}" mask="999-9"
+							size="20" maxlength="20" required="true" />
+
+						<p:outputLabel value="Nome" for="nome" />
+						<p:inputText id="nome" size="60"
+							value="#{cadastroPessoaBean.pessoa.nome}" required="true">
+							<f:validateLength maximum="80" />
+						</p:inputText>
+
+						<p:outputLabel value="E-mail" for="e-mail" />
+						<p:inputText id="e-mail" type="email" size="60" maxlength="80"
+							value="#{cadastroPessoaBean.pessoa.email}" required="true" />
+
+						<p:outputLabel value="Area" for="area" />
+						<p:inputText id="area" size="60" maxlength="60"
+							value="#{cadastroPessoaBean.pessoa.area}" required="true" />
+
+						<p:outputLabel value="Perfil" for="perfil" required="true" />
+						<p:selectOneMenu id="perfil"
+							value="#{cadastroPessoaBean.pessoa.perfil}">
+							<f:selectItem itemLabel="Usuário" itemValue="usuario" />
+							<f:selectItem itemLabel="Atendente" itemValue="atendente" />
+							<f:selectItem itemLabel="Administrador" itemValue="administrador" />
+						</p:selectOneMenu>
+
+						<p:outputLabel for="sexo" value="Sexo" required="true" />
+						<p:selectOneRadio id="sexo"
+							value="#{cadastroPessoaBean.pessoa.sexo}" required="true">
+							<f:selectItem itemLabel="Masculino" itemValue="M" />
+							<f:selectItem itemLabel="Ferminino" itemValue="F" />
+						</p:selectOneRadio>
+
+						<p:outputLabel value="Status" for="status" required="true" />
+						<p:selectOneMenu id="status"
+							value="#{cadastroPessoaBean.pessoa.status}">
+							<f:selectItem itemLabel="Ativo" itemValue="Ativo" />
+							<f:selectItem itemLabel="Inativo" itemValue="Inativo" />
+						</p:selectOneMenu>
+					</p:panelGrid>
+
+					<br />
+					<br />
+					<br />
+
+					<p:toolbar>
+						<p:toolbarGroup align="right">
+							<p:commandButton value="Salvar" id="botaoSalvar"
+								icon="ui-icon-circle-check"
+								action="#{cadastroPessoaBean.salvar()}" ajax="false" />
+							<p:button value="Cancelar" outcome="/pages/Pessoa/CadastroPessoa" />
+						</p:toolbarGroup>
+					</p:toolbar>
+
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,97 @@
+<ui:composition template="/WEB-INF/template/LayoutAdministrador.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:o="http://omnifaces.org/ui">
+
+	<ui:define name="Edição de Catálogo"></ui:define>
+	<ui:define name="corpo">
+		<f:metadata>
+			<o:viewParam name="catalogo" value="#{cadastroCatalogoBean.catalogo}" />
+		</f:metadata>
+
+
+		<div align="center">
+			<div id="inserirCatalogo" align="center" class="bordaPadrao">
+
+				<h:form>
+					<h1>Edição de Catálogo</h1>
+					<BR />
+					<p:ajaxStatus>
+						<f:facet name="start" aling="center">
+							<h:graphicImage library="images" name="loading.gif" />
+						</f:facet>
+						<f:facet name="complete">
+							<h:outputText value="" />
+						</f:facet>
+					</p:ajaxStatus>
+
+					<p:messages autoUpdate="true" closable="true" />
+
+					<h:inputHidden value="#{cadastroCatalogoBean.catalogo.idCatalogo}" />
+
+					<p:panelGrid columns="2" id="painel1"
+						style="width: 90%; margin-top: 20px;"
+						columnClasses="rotulo, campo">
+
+						<p:outputLabel value="Tipo" />
+						<p:selectOneMenu value="#{cadastroCatalogoBean.catalogo.tipo}"
+							converter="#{tipoCatalogoConverter}">
+							<f:selectItem itemLabel="" itemValue="" />
+							<f:selectItems value="#{cadastroCatalogoBean.tiposCatalogo}"
+								var="tipo" itemLabel="#{tipo.descricao}" itemValue="#{tipo}" />
+						</p:selectOneMenu>
+
+
+						<p:outputLabel value="Solicitação" for="solicitacao" />
+						<p:inputText id="solicitacao" size="60" maxlength="80"
+							value="#{cadastroCatalogoBean.catalogo.solicitacao}" />
+
+						<p:outputLabel value="SLA" for="sla" />
+						<p:inputText id="sla" size="60" maxlength="80"
+							value="#{cadastroCatalogoBean.catalogo.sla}" />
+
+					</p:panelGrid>
+
+					<br />
+					<br />
+					<br />
+
+					<p:toolbar>
+						<p:toolbarGroup align="right">
+							<p:commandButton value="Salvar" id="botaoSalvar"
+								icon="ui-icon-check" action="#{cadastroCatalogoBean.salvar()}"
+								ajax="false" />
+							<p:button value="Cancelar"
+								outcome="/pages/Catalogo/CadastroCatalogo" />
+						</p:toolbarGroup>
+					</p:toolbar>
+					<br />
+					<br />
+
+				</h:form>
+
+				<p:dialog header="Adicionar Tipo" widgetVar="addTipo"
+					showEffect="explode" hideEffect="bounce" height="100"
+					position="center" modal="true" closable="false" resizable="false">
+					<h:form>
+						<p:panelGrid columns="2" id="painel2">
+							<p:outputLabel value="Tipo" for="tipo" />
+							<p:inputText id="tipo" size="60" maxlength="80"
+								value="#{tipoCatalogoBean.tipo.descricao}" />
+						</p:panelGrid>
+
+						<p:commandButton value="Salvar" id="botaoSalvar2"
+							icon="ui-icon-check" action="#{tipoCatalogoBean.salvar()}"
+							ajax="false" />
+						<p:button value="Cancelar"
+							outcome="/pages/Catalogo/PesquisaCatalogo" />
+							
+					</h:form>
+				</p:dialog>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
